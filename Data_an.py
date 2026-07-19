@@ -18,7 +18,7 @@ Raw_Data = pd.DataFrame(Raw_Data , columns = ["Time","Feedingscrew_F","Feedingsc
 
 
 # Rename the columns name
-Raw_Data = Raw_Data.rename(columns={"Feedingscrew_F": "feedingscrew_fereq",
+Raw_Data = Raw_Data.rename(columns={"Time":"time","Feedingscrew_F": "feedingscrew_fereq",
                                      "Feedingscrew_Am": "feedingscrew_ampes" , 
                                      "Rotarywing_F": "rotarywing_fereq",
                                      "Rotarywing_Am": "rotarywing_ampes" , 
@@ -50,8 +50,8 @@ Raw_Data = Raw_Data.drop(columns = ["Stage" , "Status"])
 
 
 ### Time column
-Raw_Data["Time"] = pd.to_datetime(Raw_Data["Time"])
-Raw_Data = Raw_Data.set_index("Time")
+# Raw_Data["Time"] = pd.to_datetime(Raw_Data["Time"])
+# Raw_Data = Raw_Data.set_index("Time")
 
 
 ### Data Validation
@@ -70,8 +70,13 @@ print (Raw_Data.loc[Raw_Data["rotarywing_ampes"] < 0, "rotarywing_ampes"].descri
 Raw_Data.loc[Raw_Data["rotarywing_ampes"] < 0, "rotarywing_ampes"] = 0
 
 # checking valuse
-print (Raw_Data.dtypes)
-print (Raw_Data.info())
-print (Raw_Data.describe())
-print (Raw_Data.tail(6))
-print (Raw_Data.head(11))
+# print (Raw_Data.dtypes)
+# print (Raw_Data.info())
+# print (Raw_Data.describe())
+# print (Raw_Data.tail(6))
+# print (Raw_Data.head(11))
+
+# Time Serie Data
+print (f"the data type is: {Raw_Data.dtypes['time']}")
+Raw_Data["time"] = pd.to_datetime(Raw_Data["time"])
+print (f"the data type now is: {Raw_Data.dtypes['time']}")
