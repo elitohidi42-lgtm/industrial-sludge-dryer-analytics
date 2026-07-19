@@ -42,7 +42,7 @@ null_report = pd.DataFrame({
 print (f"here is null reports:\n {null_report} ")
 
 #checking Uniqe values
-print (f"the uniqe value of Feeding rate is:{Raw_Data["feeding_rate"].unique()} the feeding rate is increased and decreased in a stepwise manner." )
+print (f'the uniqe value of Feeding rate is:{Raw_Data["feeding_rate"].unique()} the feeding rate is increased and decreased in a stepwise manner.' )
 
 # Removing exctra columns that are nulls
 print (f'\n based on the null & uniqe values two columns {"Stage" , "Status"} will be deleted')
@@ -80,3 +80,13 @@ Raw_Data.loc[Raw_Data["rotarywing_ampes"] < 0, "rotarywing_ampes"] = 0
 print (f"the data type is: {Raw_Data.dtypes['time']}")
 Raw_Data["time"] = pd.to_datetime(Raw_Data["time"])
 print (f"the data type now is: {Raw_Data.dtypes['time']}")
+
+Raw_Data = Raw_Data.sort_values("time")
+Raw_Data["time_Diff"] = Raw_Data["time"].diff()
+print(Raw_Data["time_Diff"])
+print(Raw_Data["time"].diff().value_counts())
+# 1 min
+
+Raw_Data.set_index("time", inplace=True)
+Raw_Data["Hour"] = Raw_Data.index.hour
+Raw_Data["Date"] = Raw_Data.index.date
